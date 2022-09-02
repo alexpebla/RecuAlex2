@@ -1,0 +1,14 @@
+import React from 'react'
+
+const AdminPage = () => {
+  return (
+    <>
+    <h2>
+        AdminPage
+    </h2>
+    
+    </>
+  )
+}
+
+export default AdminPage
