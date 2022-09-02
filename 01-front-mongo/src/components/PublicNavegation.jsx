@@ -1,23 +1,21 @@
 import React from 'react'
+import { NavLink } from "react-router-dom";
 
 const PublicNavegation = () => {
   return (
-    <nav classNameName="navbar navbar-expand-lg bg-light">
-  <div classNameName="container-fluid">
-    <a className="navbar-brand" href="#">Navbar</a>
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div className="navbar-nav">
-        <a className="nav-link active" aria-current="page" href="#">Home</a>
-        <a className="nav-link" href="#">Features</a>
-        <a className="nav-link" href="#">Pricing</a>
-        <a className="nav-link disabled">Disabled</a>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+    <div className="container-fluid">
+      <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div className="navbar-nav">
+          <NavLink className="nav-link" to="/">Home</NavLink>
+          <NavLink className="nav-link" to="articles">Articles</NavLink>
+          <NavLink className="nav-link" to="login">Login</NavLink>
+          <NavLink className="nav-link" to="admin">Admin</NavLink>
+          
+        </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
   )
 }
 
