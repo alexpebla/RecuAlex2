@@ -1,26 +1,70 @@
 import { useState} from 'react'
 
+import {validarEmail} from "../helpers/validarEmail";
+
 const LoginPage = () => {
 
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
+
+
+  
+
+
 const onInputChange = (event) => {
     const {name, value} = event.target;
     if (name==='userEmail') {
+
       setEmail(value);
      } else if ( name==='userPassword'){
       setPassword(value);
       }
     }
 
+const onFormSubmit = (event)=> {
+  event.preventDefault();
+  if(!validarEmail(email)) return;
+  if(password.trim().length <6 ) return;
+  console.log( `Email: ${email} password: ${password}`); 
 
-  return (
+
+
+  customFetch('http://localhost:3000/api/usuario/login', [email, password])
+  .then((response)=> {
+    console.log(response);
+  });
+  
+
+//const onLoginClick = (event)=>{
+
+
+const customFetch = async (url, options)=>{
+  const [localEmail, localPassword] = options;
+
+  const userData = await fetch (url,{
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'access-control-allow-origin': '*',
+      },
+      mode: 'cors',
+    body: JSON.stringify({
+      email: localEmail,
+      password: localPassword 
+      })
+  });
+  return userData;
+
+ 
+}
+
+return (
     <>
       <h2>
         Login Page
       </h2>
       <hr />
-      <form>
+      <form onSubmit={onFormSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
           <input 
@@ -40,18 +84,18 @@ const onInputChange = (event) => {
                 type="password" 
                 className="form-control" 
                 id="exampleInputPassword1" 
-                name="userpassword"
+                name="userPassword"
                 value={ password} 
                 onChange={ onInputChange }      
           />
         </div>
-        <div className="mb-3 form-check">
-        </div>
-        <button className="btn btn-outline-primary">Login</button>
+        <button 
+        className="btn btn-outline-primary"
+        onClick={onInputChange}
+        >Login </button>
       </form>
 
     </>
   )
 }
-
 export default LoginPage
