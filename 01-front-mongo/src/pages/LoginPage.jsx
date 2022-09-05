@@ -1,4 +1,5 @@
 import { useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 import {validarEmail} from "../helpers/validarEmail";
 
@@ -7,7 +8,7 @@ const LoginPage = () => {
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
 
-
+const navigate = useNavigate();
   
 
 
@@ -30,10 +31,21 @@ const onFormSubmit = (event)=> {
 
 
   customFetch('http://localhost:3000/api/usuario/login', [email, password])
-  .then((response)=> {
-    console.log(response);
-  });
+  .then(
+    (response)=>  response.json()
+    )
+    .then(data => {
+      const {tokenReturn, user  } = data;
+      console.log(data);
+      localstorage.setItem('token', tokenReturn);
+      localstorage.setItem('token-date', new Date().getDate());
+      
+      navigate('/admin', {replace:true});
+
+      })
+
   
+
 
 //const onLoginClick = (event)=>{
 
@@ -55,7 +67,7 @@ const customFetch = async (url, options)=>{
   });
   return userData;
 
- 
+} 
 }
 
 return (
